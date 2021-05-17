@@ -3,7 +3,7 @@ pandas
 statsmodels
 matplotlib
 numpy
-PIL
+Pillow
 base64
 seaborn
 datetime
