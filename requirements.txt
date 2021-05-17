@@ -4,7 +4,6 @@ statsmodels
 matplotlib
 numpy
 Pillow
-base64
 seaborn
 datetime
 sklearn
