@@ -9,7 +9,6 @@ import base64
 import seaborn as sns
 import datetime as dt
 from datetime import datetime, timedelta
-import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from matplotlib.ticker import PercentFormatter
 from sklearn.preprocessing import StandardScaler
@@ -2503,29 +2502,114 @@ elif purpose == "Profitability Analysis":
         if purpose1 == 'Sales by Locations': 
 
             date = st.sidebar.date_input("Date Range", [dt.date(2011, 5, 14), dt.date(2014, 12, 31)])
+            purpose1 = st.sidebar.radio('Choose an Option', ['All Categoreis', 'Technology', 'Furniture', 'Office Supplies'])
 
-            data['Order Date'] = pd.to_datetime(data['Order Date'])
+            if purpose1 == 'All Categoreis':
 
-            start_date = pd.to_datetime(date[0])
-            end_date = pd.to_datetime(date[1])
+                data['Order Date'] = pd.to_datetime(data['Order Date'])
 
-            after_start_date = data["Order Date"] >= start_date
-            before_end_date = data["Order Date"] <= end_date
+                start_date = pd.to_datetime(date[0])
+                end_date = pd.to_datetime(date[1])
 
-            between_two_dates = after_start_date & before_end_date
-            filtered_dates = data.loc[between_two_dates]
-           
-            m = st.sidebar.slider("Set a Sales Threshold to Limit the Number of States to Show !", 0, 500000, 60000, step = 10000)
+                after_start_date = data["Order Date"] >= start_date
+                before_end_date = data["Order Date"] <= end_date
 
-            filtered_dates2 = filtered_dates.groupby('State').filter(lambda g: g.Sales.sum() > m)
+                between_two_dates = after_start_date & before_end_date
+                filtered_dates = data.loc[between_two_dates]
 
-            temp = filtered_dates2[['State','City','Sales']].groupby(['State','City'])['Sales'].sum().reset_index()
-            fig = px.treemap(temp,path=['State','City'], values='Sales')
-            fig.update_layout(height=2000, width = 1000, title='Sales by States and Cities (Top 60 States)', title_font_size=25)
-                            #color_discrete_sequence = px.colors.qualitative.Plotly)
-            fig.data[0].textinfo = 'label+text+value'
 
-            st.plotly_chart(fig)
+                m = st.sidebar.slider("Set a Sales Threshold to Limit the Number of States to Show !", 0, 500000, 60000, step = 10000)
+
+                filtered_dates2 = filtered_dates.groupby('State').filter(lambda g: g.Sales.sum() > m)
+
+                temp = filtered_dates2[['State','City','Sales']].groupby(['State','City'])['Sales'].sum().reset_index()
+                fig = px.treemap(temp,path=['State','City'], values='Sales')
+                fig.update_layout(height=2000, width = 1000, title='Sales by States and Cities (Top 60 States)', title_font_size=25)
+                                #color_discrete_sequence = px.colors.qualitative.Plotly)
+                fig.data[0].textinfo = 'label+text+value'
+
+                st.plotly_chart(fig)
+
+            if purpose1 == 'Technology':
+
+                data['Order Date'] = pd.to_datetime(data['Order Date'])
+
+                start_date = pd.to_datetime(date[0])
+                end_date = pd.to_datetime(date[1])
+
+                after_start_date = data["Order Date"] >= start_date
+                before_end_date = data["Order Date"] <= end_date
+
+                between_two_dates = after_start_date & before_end_date
+                filtered_dates = data.loc[between_two_dates]
+                
+                filtered_dates = filtered_dates[filtered_dates['Category'] == 'Technology']
+
+                m = st.sidebar.slider("Set a Sales Threshold to Limit the Number of States to Show !", 0, 200000, 30000, step = 5000)
+
+                filtered_dates2 = filtered_dates.groupby('State').filter(lambda g: g.Sales.sum() > m)
+
+                temp = filtered_dates2[['State','City','Sales']].groupby(['State','City'])['Sales'].sum().reset_index()
+                fig = px.treemap(temp,path=['State','City'], values='Sales')
+                fig.update_layout(height=2000, width = 1000, title='Sales by States and Cities (Top 60 States)', title_font_size=25)
+                                #color_discrete_sequence = px.colors.qualitative.Plotly)
+                fig.data[0].textinfo = 'label+text+value'
+
+                st.plotly_chart(fig)
+
+            if purpose1 == 'Furniture':
+
+                data['Order Date'] = pd.to_datetime(data['Order Date'])
+
+                start_date = pd.to_datetime(date[0])
+                end_date = pd.to_datetime(date[1])
+
+                after_start_date = data["Order Date"] >= start_date
+                before_end_date = data["Order Date"] <= end_date
+
+                between_two_dates = after_start_date & before_end_date
+                filtered_dates = data.loc[between_two_dates]
+                
+                filtered_dates = filtered_dates[filtered_dates['Category'] == 'Furniture']
+
+                m = st.sidebar.slider("Set a Sales Threshold to Limit the Number of States to Show !", 0, 100000, 20000, step = 5000)
+
+                filtered_dates2 = filtered_dates.groupby('State').filter(lambda g: g.Sales.sum() > m)
+
+                temp = filtered_dates2[['State','City','Sales']].groupby(['State','City'])['Sales'].sum().reset_index()
+                fig = px.treemap(temp,path=['State','City'], values='Sales')
+                fig.update_layout(height=2000, width = 1000, title='Sales by States and Cities (Top 60 States)', title_font_size=25)
+                                #color_discrete_sequence = px.colors.qualitative.Plotly)
+                fig.data[0].textinfo = 'label+text+value'
+
+                st.plotly_chart(fig)
+
+            if purpose1 == 'Office Supplies':
+
+                data['Order Date'] = pd.to_datetime(data['Order Date'])
+
+                start_date = pd.to_datetime(date[0])
+                end_date = pd.to_datetime(date[1])
+
+                after_start_date = data["Order Date"] >= start_date
+                before_end_date = data["Order Date"] <= end_date
+
+                between_two_dates = after_start_date & before_end_date
+                filtered_dates = data.loc[between_two_dates]
+                
+                filtered_dates = filtered_dates[filtered_dates['Category'] == 'Office Supplies']
+
+                m = st.sidebar.slider("Set a Sales Threshold to Limit the Number of States to Show !", 0, 100000, 20000, step = 5000)
+
+                filtered_dates2 = filtered_dates.groupby('State').filter(lambda g: g.Sales.sum() > m)
+
+                temp = filtered_dates2[['State','City','Sales']].groupby(['State','City'])['Sales'].sum().reset_index()
+                fig = px.treemap(temp,path=['State','City'], values='Sales')
+                fig.update_layout(height=2000, width = 1000, title='Sales by States and Cities (Top 60 States)', title_font_size=25)
+                                #color_discrete_sequence = px.colors.qualitative.Plotly)
+                fig.data[0].textinfo = 'label+text+value'
+
+                st.plotly_chart(fig)
 
 
 elif purpose == "Sales Forecasting":
