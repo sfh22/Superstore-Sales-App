@@ -1,6 +1,5 @@
 streamlit
 pandas
-itertools
 statsmodels
 matplotlib
 numpy
