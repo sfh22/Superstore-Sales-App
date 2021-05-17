@@ -1,0 +1,14 @@
+streamlit
+pandas
+itertools
+statsmodels
+matplotlib
+numpy
+PIL
+base64
+seaborn
+datetime
+sklearn
+urllib
+plotly
+calendar
