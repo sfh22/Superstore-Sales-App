@@ -7,6 +7,5 @@ Pillow
 seaborn
 datetime
 sklearn
-urllib
 plotly
 calendar
